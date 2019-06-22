@@ -1,0 +1,50 @@
+from tkinter import *
+from tkinter.filedialog import *
+import fileinput
+from tkinter.messagebox import *
+from tkinter.colorchooser import askcolor
+root=Tk()
+root.title("Листівка")
+root.geometry("1920x1080")
+C = Canvas(root, bg="blue", height=1080, width=1920)
+def d1():
+	if askyesno('exit','Ви справді хочете вийти?'):
+	  root.destroy()
+def save2():
+	sa=asksaveasfilename()
+	image=t.get(1.0,END)
+	f=open(sa,"w")
+	f.write(image)
+	f.close
+def open2():
+	t.delete('1.0',END)
+	op=askopenfilename()
+	for let in fileinput.input(op):
+		t.insert(END,let)
+def color():
+	(triple,h)=askcolor()
+	if h:
+		t.config(fg=h)
+m=Menu(root)
+pidm=Menu(m,tearoff=False)
+m.add_cascade(label='Файл',menu=pidm)
+pidm.add_command(label='Відкрити',command=open2)
+pidm.add_command(label='Зберегти',command=save2)
+pidm.add_separator()
+pidm.add_command(label='Вихід',command=d1)
+m.add_command(label='Колір текста',command=color)
+root.config(menu=m)
+filename = PhotoImage(file = "C:\\Games\\Flower.png")
+background_label = Label(root, image=filename)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+zapis = "Вітаємо!"
+label2 = Label(text=zapis, justify=LEFT, fg="#D3D3D3", bg="#000000", font="Arial 40", padx=5, pady=2)
+label2.place(relx=.1, rely=.1)
+print ('Введіть імя')
+hello = input()
+print('Привіт, ' + hello+ '!')
+t = Label(text=hello, justify=LEFT, fg="#FF0000",bg="#000000", font="Arial 40", padx=5, pady=1)
+t.place(relx=.1, rely=.5)
+C.pack()
+
+root.mainloop()
